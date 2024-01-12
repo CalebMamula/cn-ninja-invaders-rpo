@@ -20,14 +20,40 @@
 }
 
 
+```
 
+```template
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 
+})
+scene.setBackgroundColor(0)
+let playerSprite = sprites.create(img`
+    . . . . . . . .
+    . . . . . . . .
+    . . . . . . . .
+    . . . . . . . .
+    . . . . . . . .
+    . . . . . . . .
+    . . . . . . . .
+    . . . . . . . .
 
+    `, SpriteKind.Player)
+game.onUpdateInterval(1000, function () {
+
+})
+
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite){
+
+}
 
 ```
 
 
+```customts
 
+
+
+```
 
 
 
@@ -76,7 +102,26 @@ mySprite.setPosition(randint(0, 10), 0)
 ```
 
 ```blockconfig.global
- myEnemy = sprites.createProjectileFromSide(img`
+randint(0,160)
+ projectile = sprites.createProjectileFromSprite(img`
+        . . . . . . . 6 6 . . . . . . .
+        . . . . . . . 6 6 . . . . . . .
+        . . . . . . 6 6 3 6 . . . . . .
+        . . . . . . 6 3 3 6 . . . . . .
+        . . . . . . 6 3 3 6 . . . . . .
+        . . . . . . 6 3 3 6 . . . . . .
+        . . . . . 6 6 3 3 3 6 . . . . .
+        . . . . . 6 3 3 3 3 6 . . . . .
+        . . . . . 6 3 3 3 3 6 . . . . .
+        . . . . . 6 3 3 3 3 6 . . . . .
+        . . . . 6 3 3 3 3 3 6 . . . . .
+        . . . . 6 3 3 3 3 3 6 . . . . .
+        . . . . 6 3 3 3 3 3 3 6 . . . .
+        . . . . 6 3 3 3 3 3 3 6 . . . .
+        . . . . 6 3 3 3 3 3 3 6 . . . .
+        . . . . 6 6 6 6 6 6 6 6 . . . .
+        `, mySprite, 0, -100)
+myEnemy = sprites.createProjectileFromSide(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -93,7 +138,7 @@ mySprite.setPosition(randint(0, 10), 0)
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    `, 50, 50)
+    `, 0, 30)
 ```
 
 
@@ -105,10 +150,7 @@ In this tutorial, you will create your very own video game. Enemies will be fall
 ### Making Our Background  
 
 
-First up, our game needs a background. Open ``||scene:Scene|`` and drag ``||scene:set background color||`` inside the ``||loops:on start||`` container already on the screen.
-
-
-Click the grey bubble in the ``||scene: set background color||`` block and select a color to use as a background.
+First up, our game needs a background. Click the grey bubble in the ``||scene: set background color||`` block and select a color to use as a background.
 
 
 Check the Game Window on the right side of the screen to see the selected background color appear!
@@ -121,71 +163,43 @@ Click **Next** to go to the next step.
 ### Add Our Player Sprite
 
 
-Now we are going to create our main character. Open ``||sprites:Sprites||`` and drag the ``||variables:set [mySprite] to||`` block to the bottom of the ``||loops: on start||`` container.
+Now we are going to create our main character. In the ``||loops: on start||`` container you will see a ``||variables:set [mySprite] to||``.
 
 
-Click the grey oval and select the ninja picture under **My Assets**. Feel free to change this sprite and make it your own.
-
-
-Make sure to change the name of your sprite by clicking on **mySprite** and pressing **Rename variable**. Change the name to Ninja, or something else if you'd like. Just remember what you chose.
+Click the grey oval and select the ninja picture under **My Assets** or a different sprite from **Gallery**. Feel free to change this sprite and make it your own.
 
 
 ## GBS: Ninja Invasion Step 3
 ### Code Movement
 
 
-To move our ninja we need to open ``||controller:Controller||`` and drag ``||controller:move [mySprite] with buttons||`` block to the bottom of the ``||loops:on start||`` container.
+To move our main character, we need to open ``||controller:Controller||`` and drag ``||controller:move [mySprite] with buttons||`` block to the bottom of the ``||loops:on start||`` container.
 
+We need to tell the game which sprite we want to move. Make sure to change **mySprite** to **playerSprite**. This means the arrow keys and WASD can now move our character. Try it out!
 
-We need to tell the game which sprite we want to move. Make sure to change **mySprite** to **Ninja**. This means the arrow keys and WASD can now move the ninja. Try it out!
-
-Next, we need our character to only go back and forth (not up and down). First click the + button on the right side on the ``||controller:move [mySprite] with buttons||`` block. Now, change the (vy) box on the ``||controller:move||`` block to 0.
-
-Did you notice your character can go off screen? To fix this we are going to open ``||sprites:Sprites||`` and drag ``||sprites:set [mySprite] stay in screen |`` to the bottom of our ``||loops:on start||``. Once again, be sure to change **mySprite** to **Ninja**.
-
-Finally, go to ``||sprites:Sprites||`` and drag ``||sprites:set position||``. Set the numbers to 75 for (x) and 100 for (y).
-
+Did you notice your character can go off screen? To fix this we are going to open ``||sprites:Sprites||`` and drag ``||sprites:set [mySprite] stay in screen |`` to the bottom of our ``||loops:on start||``. Once again, be sure to change **mySprite** to **playerSprite**.
 
 
 ## GBS: Ninja Invasion Step 4
-### Spawning The Enemies Part 1
-To spawn our enemies go to ``||game:Game||`` and pull the ``||game:on game update every||`` onto the editor. This is a container, so you can place it anywhere you'd like. The code we place here will run on a repeating timer.
-
+### Spawning The Enemies
 
 Now we are going to create our enemy. Open ``||sprites:Sprites||`` and grab a ``||variables:set [myEnemy] to||`` block from the ``||sprites:Sprites||`` dropdown and place it in the ``||game:on game update every||`` container.
 
-
 Click the grey oval and select a sprite of your choice from **Gallery**.
 
+We will now pull a ``||sprites:set [mySprite] position to||`` block into the ``||game:on game update every||`` container to make all enemies start at the top of the screen. Change **mySprite** to **myEnemy**.
 
-At the end of the ``||variables:myEnemy|`` block, change the (vx) to 0 and the (vy) to 30. This will make our sprites go straight down. Also make sure to change the name of your sprite by clicking on **myEnemy** and pressing **Rename variable**. Pick any name that fits your new enemy.
-
-
-## GBS: Ninja Invasion Step 5
-### Spawning The Enemies Part 2
-
-
-We will now pull a ``||sprites:set [mySprite] position to||`` block into the ``||game:on game update every||`` container to make all enemies start at the top of the screen. Change **mySprite** to the name of your enemy.
-
-
-Under ``||math:Math||`` grab a ``||math:pick random||`` block and place it into the x oval of our ``||sprites:set  [mySprite] position to ||`` block. Change the 10 to 160. Now the enemies will start at any point along the top of the screen.
-
-
-Notice how many enemies are coming down? We can change this by modifying the number at the top of the container. Instead of 500 ms, try 1 second (1000 ms).
-
+Under ``||math:Math||`` grab a ``||math:pick random||`` block and place it into the x oval of our ``||sprites:set  [mySprite] position to ||`` block. Now the enemies will start at any point along the top of the screen.
 
 Final thing for our enemies, we need to change their kind. At the bottom of the ``||game:on game update every||`` container put a ``||sprites:set [mySprite] kind to||`` block and change the kind to **Enemy**. We will need this later on. Don't forget to set which sprite we are affecting.
 
 
-## GBS: Ninja Invasion Step 6
+## GBS: Ninja Invasion Step 5
 ### Ready, Aim, FIRE!
 Now we are going to code our projectiles. To start, we are going to need a new container. Let's use the ``||controller:on A button pressed||``. This can be placed anywhere on the coding area. Code we place in this new container will run when we hit the space bar.
 
 
 In this container we are going to place a ``||variables:set [projectile] to||`` block from the ``||sprites:Sprites||`` dropdown.
-
-
-At the end of the ``||variables:projectile||`` block we just placed in, change the (vx) to 0 and the (vy) to -100. This will make our sprites go straight up at a good speed.
 
 
 Click the grey oval and either select a picture from **Gallery** or select the shuriken under **My Assets**.
@@ -197,11 +211,11 @@ Change the **mySprite** to the name of your player, that way it will look like y
 Open the game and try it out. Our character can now shoot projectiles when you press space.
 
 
-## GBS: Ninja Invasion Step 7
+## GBS: Ninja Invasion Step 6
 ### Destroy The Enemies Part 1
 
 
-Almost done. For our next step, go to ``||sprites:Sprites||`` and grab the ``||sprites: on sprite of kind [Player] overlaps otherSprite of kind [Player]||``.
+Almost done. For our next step, find the ``||sprites: on sprite of kind [Projectile] overlaps otherSprite of kind [Enemy]||``.
 
 
 Change the first sprite kind from ``||sprites:Player||`` to ``||sprites:Projectile||``, and the second from ``||sprites:Player||`` to ``||sprites:Enemy||``.
@@ -209,9 +223,9 @@ Change the first sprite kind from ``||sprites:Player||`` to ``||sprites:Projecti
 
 Now when our **Projectile** hits the **Enemy**, the code we place in this container will run.
 
-## GBS: Ninja Invasion Step 8
+## GBS: Ninja Invasion Step 7
 ### Destroy The Enemies Part 2
-Place a ``||sprites:destroy [mySprite]||`` block inside our new overlap container. Drag the ``||variables:otherSprite||`` oval to where it says **mySprite** in the ``||variables:destroy||`` block.
+Place a ``||sprites:destroy [mySprite]||`` block inside our overlap container. Drag the ``||variables:otherSprite||`` oval to where it says **mySprite** in the ``||variables:destroy||`` block.
 
 
 Now click the + button on the new destroy block. Pick a fun effect and try it out. It is recommended to change the duration time to either 100 ms or 200 ms.
@@ -223,7 +237,7 @@ Last but not least, go to ``||info:Info||`` and grab a ``||info:change score by|
 Try the game out! When you are ready, move on to the final step.
 
 
-## GBS: Ninja Invasion Step 9
+## GBS: Ninja Invasion Step 8
 ### ``||variables:C||`` ``||controller:u||`` ``||loops:s||`` ``||animation:t||`` ``||logic:o||`` ``||sprites:m||`` ``||music:i||`` ``||math:z||`` ``||scene:e||``
 **The tutorial is finished, but now it's time to customize our game! Here are a few examples of things to try:**
 
