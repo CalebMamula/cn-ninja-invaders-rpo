@@ -1,5 +1,5 @@
 
-> http://arcade.makecode.com/#tutorial:https://github.com/calebmamula/cn-ninja-invaders-rpo
+> http://arcade.makecode.com/#tutorial:https://github.com/calebmamula/cn-ninja-invaders-gbs
 
 ### @explicitHints true
 # Code Ninjas Unofficial GBS (Ninja Invaders)
@@ -49,11 +49,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
 ```
 
 
-```customts
 
-
-
-```
 
 
 
@@ -139,6 +135,7 @@ myEnemy = sprites.createProjectileFromSide(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, 0, 30)
+    
 ```
 
 
@@ -215,7 +212,7 @@ Open the game and try it out. Our character can now shoot projectiles when you p
 ### Destroy The Enemies Part 1
 
 
-Almost done. For our next step, find the ``||sprites: on sprite of kind [Projectile] overlaps otherSprite of kind [Enemy]||``.
+Almost done. For our next step, find the ``||sprites: on sprite of kind [Projectile] overlaps otherSprite of kind [PlayerEne]||``.
 
 
 Change the first sprite kind from ``||sprites:Player||`` to ``||sprites:Projectile||``, and the second from ``||sprites:Player||`` to ``||sprites:Enemy||``.
@@ -225,7 +222,7 @@ Now when our **Projectile** hits the **Enemy**, the code we place in this contai
 
 ## GBS: Ninja Invasion Step 7
 ### Destroy The Enemies Part 2
-Place a ``||sprites:destroy [mySprite]||`` block inside our overlap container. Drag the ``||variables:otherSprite||`` oval to where it says **mySprite** in the ``||variables:destroy||`` block.
+Place a ``||sprites:destroy [mySprite]||`` block inside our new overlap container. Drag the ``||variables:otherSprite||`` oval to where it says **mySprite** in the ``||variables:destroy||`` block.
 
 
 Now click the + button on the new destroy block. Pick a fun effect and try it out. It is recommended to change the duration time to either 100 ms or 200 ms.
