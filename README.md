@@ -1,5 +1,5 @@
 
-> http://arcade.makecode.com/#tutorial:https://github.com/calebmamula/cn-ninja-invaders-gbs
+> http://arcade.makecode.com/#tutorial:https://github.com/calebmamula/cn-ninja-invaders-rpo
 
 ### @explicitHints true
 # Code Ninjas Unofficial GBS (Ninja Invaders)
@@ -47,10 +47,16 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
 }
 
 ```
+```customts
+function moveAllPlayersToPosition(x: number, y: number) {
+    for (let sprite of sprites.allOfKind(SpriteKind.Player)) {
+        sprite.setPosition(x, y);
+    }
+}
 
+moveAllPlayersToPosition(60, 100);
 
-
-
+```
 
 
 ```blocks
