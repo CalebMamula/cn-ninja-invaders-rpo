@@ -153,7 +153,7 @@ In this tutorial, you will create your very own video game. Enemies will be fall
 ### Making Our Background  
 
 
-First up, our game needs a background. Click the grey bubble in the ``||scene: set background color||`` block and select a color to use as a background.
+First up, our game needs a background. Click the grey bubble in the ``||scene: set background color||`` block that can be found in the ``||loops: on start||`` already on the screen. Select a color to use as a background.
 
 
 Check the Game Window on the right side of the screen to see the selected background color appear!
@@ -166,10 +166,10 @@ Click **Next** to go to the next step.
 ### Add Our Player Sprite
 
 
-Now we are going to create our main character. In the ``||loops: on start||`` container you will see a ``||variables:set [mySprite] to||``.
+Now we are going to create our main character. In the ``||loops: on start||`` container you will see a ``||variables:set [playerSprite] to||``.
 
 
-Click the grey oval and select the ninja picture under **My Assets** or a different sprite from **Gallery**. Feel free to change this sprite and make it your own.
+Click the grey oval and either select the ninja picture under **My Assets** or a different sprite from **Gallery**. Feel free to change this sprite and make it your own.
 
 
 ## GBS: Ninja Invasion Step 3
@@ -192,7 +192,7 @@ Click the grey oval and select a sprite of your choice from **Gallery**.
 
 We will now pull a ``||sprites:set [mySprite] position to||`` block into the ``||game:on game update every||`` container to make all enemies start at the top of the screen. Change **mySprite** to **myEnemy**.
 
-Under ``||math:Math||`` grab a ``||math:pick random||`` block and place it into the x oval of our ``||sprites:set  [mySprite] position to ||`` block. Now the enemies will start at any point along the top of the screen.
+Under ``||math:Math||`` grab a ``||math:pick random||`` block and place it into the x oval of our ``||sprites:set [mySprite] position to ||`` block. Now the enemies will start at any point along the top of the screen.
 
 Final thing for our enemies, we need to change their kind. At the bottom of the ``||game:on game update every||`` container put a ``||sprites:set [mySprite] kind to||`` block and change the kind to **Enemy**. We will need this later on. Don't forget to set which sprite we are affecting.
 
@@ -215,19 +215,13 @@ Open the game and try it out. Our character can now shoot projectiles when you p
 
 
 ## GBS: Ninja Invasion Step 6
-### Destroy The Enemies Part 1
+### Destroy The Enemies
 
 
-Almost done. For our next step, find the ``||sprites: on sprite of kind [Projectile] overlaps otherSprite of kind [PlayerEne]||``.
+Almost done. For our next step, find the ``||sprites: on sprite of kind [Projectile] overlaps otherSprite of kind [Player]||`` container already on the screen.
 
+When our **Projectile** hits the **Enemy**, the code we place in this container will run.
 
-Change the first sprite kind from ``||sprites:Player||`` to ``||sprites:Projectile||``, and the second from ``||sprites:Player||`` to ``||sprites:Enemy||``.
-
-
-Now when our **Projectile** hits the **Enemy**, the code we place in this container will run.
-
-## GBS: Ninja Invasion Step 7
-### Destroy The Enemies Part 2
 Place a ``||sprites:destroy [mySprite]||`` block inside our new overlap container. Drag the ``||variables:otherSprite||`` oval to where it says **mySprite** in the ``||variables:destroy||`` block.
 
 
@@ -240,30 +234,24 @@ Last but not least, go to ``||info:Info||`` and grab a ``||info:change score by|
 Try the game out! When you are ready, move on to the final step.
 
 
-## GBS: Ninja Invasion Step 8
+## GBS: Ninja Invasion Step 7
 ### ``||variables:C||`` ``||controller:u||`` ``||loops:s||`` ``||animation:t||`` ``||logic:o||`` ``||sprites:m||`` ``||music:i||`` ``||math:z||`` ``||scene:e||``
 **The tutorial is finished, but now it's time to customize our game! Here are a few examples of things to try:**
 
-
--Put a dialog box or splash screen for game instructions.
-
+-Put sound effects in the game for even more fun!
 
 -Customize the sprites and background to your liking. It's your game! (The fill option in the sprite editor can speed this process up)
 
-
--Put sound effects in the game for even more fun!
-
+-Put a dialog box or splash screen for game instructions.
 
 -Allow a way to win. Add a timer, add lives, or some combination. Maybe a highscore? Be creative!
 
-
 -Add animations. For example, make the projectiles spin or change color as they fly.
 
+-Make a new type of enemy. Maybe something that moves faster? Perhaps it's harder to kill?
 
--Make a new type of enemy. Maybe something that moves faster? Perhaps harder to kill?
 
-
-*Decide with your Sensei on which customizations you want to make to your game. When you are ready, click **Done**.*
+*Begin to plan on which customizations you want to make to your game. When you are ready, click **Done** to enter the main MakeCode editor.*
 
 
 
